@@ -60,14 +60,27 @@
   }
 }
 
+
+
 @media(max-width:1164px){
   .btn{
     left:16rem
   }
 }
 
+@media(max-width:1150px){
+  .btn{
+    left:19%
+  }
+}
+
 @media(max-width:1024px){
   .btn{
-    left:11rem
+    left:12%
+  }
+}
+@media(max-width:680px){
+  .btn{
+    left:6%
   }
 }
