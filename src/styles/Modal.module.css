@@ -10,3 +10,64 @@
     z-index: 1000;
   }
   
+
+  .btn{
+    position: absolute;
+    top:27px;
+    left:39rem;
+    font-weight: bold;
+    z-index: 100;
+    padding: 12px;
+    background-color: #ffffff;
+    color: #0161ab;
+    cursor: pointer;
+    border:none;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 0.9310142993927002px 0px rgba(0, 0, 0, 0.17), 0px 0px 3.1270833015441895px 0px rgba(0, 0, 0, 0.08), 0px 7px 14px 0px rgba(0, 0, 0, 0.05);;
+}
+
+.btn:hover{
+  background-color: #9c9797;
+}
+
+@media(max-width:1920px){
+  .btn{
+    left:39rem
+  }
+}
+
+@media(max-width:1707px){
+  .btn{
+    left:33rem
+  }
+}
+
+@media(max-width:1600px){
+  .btn{
+    left:30rem
+  }
+}
+
+@media(max-width:1423px){
+  .btn{
+    left:24rem
+  }
+}
+
+@media(max-width:1280px){
+  .btn{
+    left:20rem
+  }
+}
+
+@media(max-width:1164px){
+  .btn{
+    left:16rem
+  }
+}
+
+@media(max-width:1024px){
+  .btn{
+    left:11rem
+  }
+}

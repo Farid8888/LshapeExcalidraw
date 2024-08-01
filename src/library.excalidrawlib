@@ -1,0 +1,76 @@
+{
+  "type": "excalidrawlib",
+  "version": 2,
+  "source": "http://localhost:5173",
+  "libraryItems": [
+    {
+      "status": "unpublished",
+      "elements": [
+        {
+          "type": "line",
+          "version": 867,
+          "versionNonce": 169146841,
+          "isDeleted": false,
+          "id": "jb3L9b0fHk2Xsagp_Aw9b",
+          "fillStyle": "solid",
+          "strokeWidth": 2,
+          "strokeStyle": "solid",
+          "roughness": 1,
+          "opacity": 100,
+          "angle": 0,
+          "x": 229.14264888633082,
+          "y": 146.91215719045516,
+          "strokeColor": "#1971c2",
+          "backgroundColor": "#a5d8ff",
+          "width": 18.09863931980236,
+          "height": 19.314677801286386,
+          "seed": 513121647,
+          "groupIds": [],
+          "frameId": null,
+          "roundness": null,
+          "boundElements": [],
+          "updated": 1722471113610,
+          "link": null,
+          "locked": false,
+          "startBinding": null,
+          "endBinding": null,
+          "lastCommittedPoint": null,
+          "startArrowhead": null,
+          "endArrowhead": null,
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              19.225896564273086
+            ],
+            [
+              17.982162410458645,
+              19.314677801286386
+            ],
+            [
+              18.09863931980236,
+              11.026617147156625
+            ],
+            [
+              8.429503244839454,
+              10.952376669418255
+            ],
+            [
+              8.30553996182711,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "id": "jXbJpDIbOYxtIwMk6eOpd",
+      "created": 1722471120495
+    }
+  ]
+}

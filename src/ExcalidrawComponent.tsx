@@ -2,6 +2,7 @@ import React from "react";
 import {
   Excalidraw,
   convertToExcalidrawElements,
+  restoreElements,MainMenu
 } from "@excalidraw/excalidraw";
 import classes from "./styles/Modal.module.css";
 import { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
@@ -10,7 +11,6 @@ const ExcalidrawComponent = () => {
   const [selectedElementData, setSelectedElementData] = React.useState<
     ExcalidrawElement[] | null
   >(null);
-
   const elements = convertToExcalidrawElements([
     {
       id: "RLMQdeJsdQZ4W2BLZLbms",
@@ -52,22 +52,44 @@ const ExcalidrawComponent = () => {
       endBinding: null,
       startArrowhead: null,
       endArrowhead: null,
-    },
+    }
   ]);
 
   const doubleHandler = () => {
     setSelectedElementData(elements);
   };
 
+
+  const [excalidrawAPI, setExcalidrawAPI] = React.useState<any>(null);
+  const elem = excalidrawAPI?.getSceneElements();
+
+
+    const updateScene = () => {
+      const sceneData = {
+        elements: restoreElements([...elem,{...elem[0],x:(500 - 200*Math.random()),y:(300 - 10*Math.random())}],null),
+        appState: {
+          viewBackgroundColor: "#edf2ff"
+        }
+      };
+      excalidrawAPI?.updateScene(sceneData);
+    };
+
+
   return (
-    <div style={{ height: "500px" }} onDoubleClick={doubleHandler}>
+    <div style={{ height: "500px"}} onDoubleClick={doubleHandler}>
       <Excalidraw
+        excalidrawAPI={(api) => setExcalidrawAPI(api)}
         initialData={{
           elements,
-          appState: { zenModeEnabled: true, viewBackgroundColor: "#ffffff" },
+          appState: {
+            viewBackgroundColor: "#ffffff",
+          },
           scrollToContent: true,
-        }}
+        
+        }
+      }
       />
+      <button type="button" className={classes.btn} onClick={updateScene}>L</button>
       {selectedElementData && (
         <div className={classes.dataWindow}>
           <p>{JSON.stringify(selectedElementData, undefined, 2)}</p>
