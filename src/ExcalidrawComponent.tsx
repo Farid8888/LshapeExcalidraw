@@ -88,15 +88,13 @@ React.useEffect(() => {
       clickTimeoutRef.current = null;
 
       const selectedEl = pointerDownState.hit.element;
-      // Handle double-click
       setSelectedElementData(selectedEl);
       changeWindow(6);
       showModal();
     } else {
       clickTimeoutRef.current = setTimeout(() => {
         clickTimeoutRef.current = null;
-        // Handle single click if needed
-      }, 200); // Adjust the timeout duration as needed
+      }, 200); 
     }
   };
 
