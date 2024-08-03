@@ -1,13 +1,20 @@
-import React from "react";
+// @ts-nocheck 
+import React,{useContext,useRef} from "react";
 import {
   Excalidraw,
   convertToExcalidrawElements,
-  restoreElements,MainMenu
+  restoreElements
 } from "@excalidraw/excalidraw";
 import classes from "./styles/Modal.module.css";
 import { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
+import Modal from "./modal/Modal";
+import {ModalContext} from './context/ModalContext'
+
+
 
 const ExcalidrawComponent = () => {
+  const clickTimeoutRef = useRef(null);
+const {changeWindow,showModal} = useContext(ModalContext)
   const [selectedElementData, setSelectedElementData] = React.useState<
     ExcalidrawElement[] | null
   >(null);
@@ -55,18 +62,55 @@ const ExcalidrawComponent = () => {
     }
   ]);
 
-  const doubleHandler = () => {
-    setSelectedElementData(elements);
+  const [excalidrawAPI, setExcalidrawAPI] = React.useState(null);
+
+  const elem = excalidrawAPI?.getSceneElements()
+console.log(elem)
+
+  // const doubleHandler = () => {
+  //   setSelectedElementData(elem);
+  // };
+
+// React.useEffect(()=>{
+//   excalidrawAPI?.onPointerDown((event, pointerDownState) => {
+//     const selectedEl = pointerDownState.hit.element;
+//     // console.log(selectedEl);
+//       setSelectedElementData(selectedEl);
+//       changeWindow(6);
+//       showModal();
+//   });
+// },[excalidrawAPI])
+
+React.useEffect(() => {
+  const handlePointerDown = (event, pointerDownState) => {
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+      clickTimeoutRef.current = null;
+
+      const selectedEl = pointerDownState.hit.element;
+      // Handle double-click
+      setSelectedElementData(selectedEl);
+      changeWindow(6);
+      showModal();
+    } else {
+      clickTimeoutRef.current = setTimeout(() => {
+        clickTimeoutRef.current = null;
+        // Handle single click if needed
+      }, 200); // Adjust the timeout duration as needed
+    }
   };
 
+  excalidrawAPI?.onPointerDown(handlePointerDown);
 
-  const [excalidrawAPI, setExcalidrawAPI] = React.useState<any>(null);
-  const elem = excalidrawAPI?.getSceneElements();
+  return () => {
+    excalidrawAPI?.offPointerDown(handlePointerDown);
+  };
+}, [excalidrawAPI]);
 
-
+        
     const updateScene = () => {
       const sceneData = {
-        elements: restoreElements([...elem,{...elem[0],x:(500 - 200*Math.random()),y:(300 - 10*Math.random())}],null),
+        elements: restoreElements([...elements,{...elements[0],x:(500 - 200*Math.random()),y:(300 - 10*Math.random())}],null),
         appState: {
           viewBackgroundColor: "#edf2ff"
         }
@@ -76,28 +120,19 @@ const ExcalidrawComponent = () => {
 
 
   return (
-    <div style={{ height: "500px"}} onDoubleClick={doubleHandler}>
+    <div style={{ height: "500px"}}>
       <Excalidraw
         excalidrawAPI={(api) => setExcalidrawAPI(api)}
         initialData={{
-          elements,
-          appState: {
-            viewBackgroundColor: "#ffffff",
-          },
-          scrollToContent: true,
-        
+          elements
         }
       }
       />
       <button type="button" className={classes.btn} onClick={updateScene}>L</button>
-      {selectedElementData && (
-        <div className={classes.dataWindow}>
-          <p>{JSON.stringify(selectedElementData, undefined, 2)}</p>
-          <button onClick={() => setSelectedElementData(null)}>Close</button>
-        </div>
-      )}
+      <Modal selectedElementData={selectedElementData} setSelectedElementData={setSelectedElementData}/>
     </div>
   );
 };
 
 export default ExcalidrawComponent;
+
